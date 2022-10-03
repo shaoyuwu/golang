@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+//目录名与文件名"./;userinfo";
+option go_package = "./userService";   
+
+//分号结尾
+message userinfo {
+    string username = 1;
+    int32 age =2;
+    phonetype type =3;
+    repeated string hobby = 4;
+}
+
+enum phonetype {
+    MOBILE =0;
+    HOME=1;
+    WORK=2;
+}
+
+
+
+
+//编译命令 protoc --go_out=./ *.proto
