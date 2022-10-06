@@ -1,0 +1,23 @@
+第一种方法：
+
+	go install go-micro.dev/v4/cmd/micro@v4.6.0
+
+
+	安装完成直接可以使用  micro创建项目
+
+	micro new service goods
+
+	micro new client goods
+
+第二种方法：参考官方文档https://github.com/go-micro/cli
+
+
+
+	go install github.com/go-micro/cli@latest
+
+
+	执行完成后它会把cli可执行文件下载到goPath对应的bin目录里面
+
+	这个时候我们手动修改一下cli可执行文件，如：windows电脑需要把cli.exe改成 micro.exe 或者 go-micro.exe，这个时候就可以使用micro或者go-micro创建项目了
+
+	
