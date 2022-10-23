@@ -2,15 +2,14 @@ package main
 
 import (
 	"fmt"
-	"net"
-	"net/rpc"
 	"net/rpc/jsonrpc"
 )
 
+/*
 func main() {
 	//1.用net.Dial和jsonrpc微服务端建立连接
-	// conn, err := rpc.Dial("tcp", "127.0.0.1:8080")
 	conn, err := net.Dial("tcp", "127.0.0.1:8080")
+
 	if err != nil {
 		fmt.Printf("err: %v\n", err)
 	}
@@ -23,6 +22,27 @@ func main() {
 
 	var reply string
 	err2 := client.Call("hello.SayHello", "我是客户端", &reply)
+	if err2 != nil {
+		fmt.Printf("err2: %v\n", err2)
+	}
+	//4.获取微服务端返回的数据
+	fmt.Printf("reply: %v\n", reply)
+}
+*/
+
+// 直接使用jsonrpc进行建立连接，并调用远程函数
+func main() {
+	//1.用net.Dial和jsonrpc微服务端建立连接
+	conn, err := jsonrpc.Dial("tcp", "127.0.0.1:8080")
+	if err != nil {
+		fmt.Printf("err: %v\n", err)
+	}
+	//客户端退出时断开连接
+	defer conn.Close()
+	//2.调用远程函数
+
+	var reply string
+	err2 := conn.Call("hello.SayHello", "我是客户端", &reply)
 	if err2 != nil {
 		fmt.Printf("err2: %v\n", err2)
 	}

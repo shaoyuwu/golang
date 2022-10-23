@@ -7,7 +7,7 @@ import (
 	"net/rpc/jsonrpc"
 )
 
-//1.定义一个远程调用的方法
+// 1.定义一个远程调用的方法
 type Hello struct {
 }
 
@@ -26,7 +26,7 @@ func (th Hello) SayHello(req string, res *string) error {
 }
 
 func main() {
-	//1.注册RPC服务
+	//1.注册RPC服务,指定服务名称，不指定默认为结构体名称
 	err := rpc.RegisterName("hello", new(Hello))
 	if err != nil {
 		fmt.Println("err:", err)
@@ -48,7 +48,9 @@ func main() {
 		}
 		//5.绑定服务
 		// rpc.ServeConn(conn)
-		rpc.ServeCodec(jsonrpc.NewServerCodec(conn))
+		go rpc.ServeCodec(jsonrpc.NewServerCodec(conn))
+		//也可使用这种方法启动
+		//go jsonrpc.ServeConn(conn)  //这种写法会调用已经分装好的方法，及上面的写法
 	}
 
 }
